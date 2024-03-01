@@ -169,7 +169,6 @@
 
          ! Calculates the temperature term of the energy equation.
          ! Includes neutrino energy rates for emmited enu and enubar.
-         !XXX comprobar esto
          phi(1,1)=cv-theta*(val1-delta*(dEneutr*y(2)+dEaneutr*y(3)))
 
          do j=1,iso
@@ -179,19 +178,15 @@
          enddo
 
          ! Diagonal corrections
-         !XXX Comprobar esto
          do i=2,iso
             phi(i,i)=phi(i,i)+1.d0-theta
          enddo 
-         !XXX Comprobar esto
          vindep(1)=val2-cv*(tempout-tempin)-delta*(Eneutr*y(2)+Eaneutr*y(3))!+dif*deltadif
-         !XXX Comprobar esto
          do i=3,iso-1
             vindep(1)=vindep(1)-phi(1,i)*(y_out(i)-y_in(i))
          enddo
          vindep(1)=vindep(1)-(phi(1,iso)-theta*delta*(dEneutrdYe*y(2)+dEaneutrdYe*y(3)))*(y_out(iso)-y_in(iso))
          vindep(1)=vindep(1)-(phi(1,2)-theta*delta*(Eneutr+Eaneutr))*(y_out(2)-y_in(2))
-         !XXX Comprobar esto
          f(1)=vindep(1)
 
 ! OOOOOOOOOOOOOOOOOOO SYSTEM RESOLUTION OOOOOOOOOOOOOOOOOOO
@@ -232,19 +227,14 @@
          !and force to pass the limit in these cases.
          !Equivalent to reducing the timestep to allow convergence
          if(k_iter.gt.2.and.k_iter.lt.9.and.(abs(vindep(1)).gt.abs(vindepold(1))))then
-!         if(k_iter.gt.2.and.k_iter.lt.9.and.(abs(vindep(1)).gt.abs(vindepold(1))) .and. (vindep(1)/vindepold(1)).ge.0.d0)then
             vindep(:)=vindep(:)*0.21d0
             correction=NR_limit/1.d6 !1.d-16
-!!            print*, 'aqui', temp,vindep(1),vindepold(1),k_iter
-!!            pause
-!               stop
          endif
 
          tempout=tempout+vindep(1)          !Update Tempout
 
          do i=2,iso                         !Update Y
             y_out(i)=y_out(i)+vindep(i)
-            !if(y_out(i).le.-ymin) print *,'Warning! Negative Y',i,y_out(i)
             if(y_out(i).le.ymin)y_out(i)=0.d0
           enddo
 
@@ -284,14 +274,10 @@
 
       DOUBLE PRECISION,INTENT(in)::temp,rho
 
-      !XXX move to parameters in
-	    !LOGICAL :: electroncapture=.true.
       DOUBLE PRECISION t9,t913,t923,t953,t9i,t9i2,t9i13,t9i23,t9i43,lt9
       DOUBLE PRECISION ue,ue2,ue3,ue4,ue5,ue6,due,ueaux,t92,t93,t94,t95,t96,t9i3
       DOUBLE PRECISION aue,b,bx,x,x2,x3,x4,aux,invaux,dxdYe,dUedx,dUdYe,alfa,beta
       DOUBLE PRECISION,DIMENSION(nc):: interpolated
-
-	  !if(rho.lt.5.d7) electroncapture=.false.
 
       t9=temp/1.d9
       t913=t9**(third)
@@ -313,9 +299,9 @@
         deff(i)=eff(i)*dcoef(i)
       enddo
           
-! From most of the (a,p) and (a,n) we only have the inverse reaction.
-! For that reason we use the inverse of the inverse as direct reaction.
-! So the direct reactions from the tables are the inverse of our network.
+      ! From most of the (a,p) and (a,n) we only have the inverse reaction.
+      ! For that reason we use the inverse of the inverse as direct reaction.
+      ! So the direct reactions from the tables are the inverse of our network.
       do i=138,154
         l(i)=eff(i)
         dl(i)=deff(i)
@@ -325,17 +311,16 @@
       l(158)=eff(158)
       dl(158)=deff(158)
 
-! Electron capture Rate (effe) and Derivatives (deffe=deffe/dT and deffedYe=deffe/dYe)
-! Energy of neutrinos and dUe/dYe:
+      ! Electron capture Rate (effe) and Derivatives (deffe=deffe/dT and deffedYe=deffe/dYe)
+      ! Energy of neutrinos and dUe/dYe:
       if(electroncapture) then
-        if(tabulated) THEN
+        if(tabulated) then
           call interp(temp,rho*y(iso),interpolated)
           effe=interpolated(1)
           deffe=interpolated(2)
           deffedYe=interpolated(3)*rho
           Eneutr=interpolated(4)
 
-          !dUedYe comes from EOS
           dEneutr=interpolated(5)
           dEneutrdYe=interpolated(6)*rho
 
@@ -345,7 +330,9 @@
           Eaneutr=interpolated(10)
           dEaneutr=interpolated(11)
           dEaneutrdYe=interpolated(12)*rho
+
         else
+
           ueaux=1.d-2*(rho*y(iso))**third
           ue=min(ueaux,6.d-6*rho*y(iso)*t9i2) !Chemical Potential
           t92=t9*t9
@@ -380,7 +367,11 @@
           Eneutr=Eneutr*4.93d17
           dEneutr=dEneutr*4.93d17*1.d-9
           dEneutrdYe=dEneutrdYe*4.93d17
-          ! Calculation of dUe/dYe from Chandrasekhar expression:
+
+          
+          ! Calculation of dUe/dYe from Chandrasekhar expression (not necessary)
+          ! dUedYe comes from EOS
+
           ! aue=6.01d22
           ! b=1.1218d-18
           ! bx=1.006d-02
@@ -412,7 +403,6 @@
       endif
      return
 
-
     end subroutine direct
 
 
@@ -426,13 +416,12 @@
       IMPLICIT NONE
       INTEGER fin,ini
       DOUBLE PRECISION,INTENT(in)::temp
-      DOUBLE PRECISION t9,t9i,t932,val1,val2,val3,val4,part,alfa,beta
+      DOUBLE PRECISION t9,t9i,t932,val1,val2,val3,val4,part
       DOUBLE PRECISION,DIMENSION(19)::aux1,aux2
 
       t9=temp/1.d9
       t9i=1.d0/t9
       t932=t9**1.5d0
-
 
       if(t9.ge.0.01d0.and.t9.lt.0.15d0) then
         k=1
@@ -499,37 +488,35 @@
       val4=1.5d-9*t9i
 
 !  *** target=target of the direct reaction not of the inverse ***
-!      do i=8,137
       do i=8,rates  
-       if(i.le.137 .or.i.eq.(rates-2) .or. i.eq.rates-1) then
-        fin=final(i)
-        ini=target(i)
-         if(i.eq.rates-1) then 
-             part=1.d0
+        if(i.le.137 .or.i.eq.(rates-2) .or. i.eq.rates-1) then
+           fin=final(i)
+           ini=target(i)
+           if(i.eq.rates-1) then 
+              part=1.d0
            else
-             part=choose(ini,k)/choose(fin,k)
+              part=choose(ini,k)/choose(fin,k)
            endif
-        l(i)=part*exp(fit(i,8)+coef(i)-val1*q(i)+val2)
-        dl(i)=l(i)*(dcoef(i)+val3*q(i)+val4)
-       endif
+           l(i)=part*exp(fit(i,8)+coef(i)-val1*q(i)+val2)
+           dl(i)=l(i)*(dcoef(i)+val3*q(i)+val4)
+        endif
       enddo
-       do i=138,rates   !These are not photodesintegrations so they don't have val2. Except rates-2 and rates-1). 
-      if(i.eq. (rates-2) .or. i.eq.(rates-1)) then 
-       else
+      
+      do i=138,rates   !These are not photodesintegrations so they don't have val2. Except rates-2 and rates-1
+        if(i.eq. (rates-2) .or. i.eq.(rates-1))cycle
         fin=final(i)
         ini=target(i)
         if(i.eq.rates) then 
-            part=1.d0
-         else
-            part=choose(ini,k)/choose(fin,k)
-         endif
+           part=1.d0
+        else
+           part=choose(ini,k)/choose(fin,k)
+        endif
         l(i)=part*exp(fit(i,8)+coef(i)-val1*q(i))
         dl(i)=l(i)*(dcoef(i)+val3*q(i))
-       endif
       enddo 
 ! --------------------------------------------------------------
 
-      ! From most of the (a,p) and (a,n) we only have the inverse reaction.
+      ! For most of the (a,p) and (a,n) we only have the inverse reaction.
       ! For that reason we use the inverse of the inverse as direct reaction.
       ! So the direct reactions from the tables are the inverse of our network.
       do i=138,154
@@ -833,7 +820,7 @@
 
       IMPLICIT NONE
       INTEGER a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a88,&
-     &      a89,a90,a91,a128,a129,a138,a139,a148,a149,ant
+            & a89,a90,a91,a128,a129,a138,a139,a148,a149,ant
 
       DOUBLE PRECISION,INTENT(in)::delta,temp,rho,theta
       DOUBLE PRECISION kbt,nakbt,ne,ae,gam,gamma
@@ -1097,7 +1084,7 @@
       nakbt=kbt*na
       do i=2,iso
          phi(i,1)=-delta*fp(i)
-         phi(1,i)=-be(i)*9.648529392d17+nakbt*1.5d0
+         phi(1,i)=-be(i)*MeVperparticle2erg+nakbt*1.5d0
       enddo
       phi(1,iso)=phi(1,iso)-nakbt*1.5d0+dUedYe+theta*delta*(dEneutrdYe*y(2)+dEaneutrdYe*y(3))
       phi(1,2)=phi(1,2)+theta*Eneutr*delta
@@ -1159,7 +1146,7 @@
       DOUBLE PRECISION,INTENT(in)::temp
 
       DOUBLE PRECISION t9,t9r,t92,t93,t95,t912,t913,t923,t932,t943,t953
-      DOUBLE PRECISION t9m1,t9m13,t9m23,t9m32,t9rm1,t9r32,theta
+      DOUBLE PRECISION t9m1,t9m13,t9m23,t9m32,t9rm1,t9r32
       DOUBLE PRECISION t9a,t9a2,t9a13,t9a23,t9a56
       DOUBLE PRECISION r2abe,rbeac,r3a,rev,rg3a,r24,rc28,r1216,r32
       DOUBLE PRECISION rcag,roga,roag,rnega
@@ -1181,7 +1168,6 @@
       t9m32=1.d0/t932
       t9rm1=1.d0/t9r
       t9r32=t9*dsqrt(t9r)
-!!!! ???      theta=.1d0
       do i=1,rates
         eff(i)=0.d0
       enddo
@@ -1217,13 +1203,12 @@
 
 
 ! ** 12c photodesintegration
-
       rg3a=rev*(t93)*r3a
       l(5)=rg3a
+
 ! **
 ! ** 12c+12c reaction rate
 ! **
-
       t9a=t9/(1.d0+0.0396d0*t9)
       t9a13=t9a**third
       t9a56=t9a**fsix
@@ -1233,7 +1218,6 @@
 ! **
 ! ** c12+o16 reaction rate
 ! **
-
       if(t9.ge..5d0) then
             t9a=t9/(1.d0+0.055d0*t9)
             t9a2=t9a*t9a
@@ -1251,7 +1235,6 @@
 ! **
 ! ** 16o+16o reaction rate
 ! **
-
       r32=7.10d+36*t9m23*dexp(-135.93d0*t9m13-0.629d0*t923-0.445d0*t943&
      &    +0.0103d0*t92)
       eff(3)=r32
@@ -1259,7 +1242,6 @@
 ! **
 ! ** 12c(a,g)16o
 ! **
-
       rcag=(1.04d+08/(t92*(1.d0+0.0489d0*t9m23)**2.d0)&
      &     *dexp(-32.120d0*t9m13-t92/12.222016d0)&
      &     +1.76d+08/(t92*(1.d0+0.2654d0*t9m23)**2.d0)&
@@ -1330,7 +1312,6 @@
       enddo
 
 ! *** dl(4) and deff(5). Alpha
-
       vA=-24.811d0*t9i
       vB=-1.0663d0*t9i
       vC=-13.49d0*t9i13-t92*104.123282d0
@@ -1357,7 +1338,6 @@
 
 
 ! *** dl(5) and deff(6). 12C
-
       vA=-84.424035d0*t9i
       vB=(1.d0+.0489d0*t9i23)**2.d0
       vC=-32.120d0*t9i13-(t9/3.496d0)**2.d0
@@ -1379,8 +1359,8 @@
      &        1.25d3*dexp(vF)*(-1.5d0*t9i52+dvF*t9i32)+&
      &        1.43d-2*dexp(vG)*(5.d0*t94+dvG*t95)
 
-! *** dl(6) and deff(7). 16O
 
+! *** dl(6) and deff(7). 16O
       vA=-83.11501d0*t9i
       vB=-39.757d0*t9i13-(t9/1.586d0)**2.d0
       vC=-10.297d0*t9i
@@ -1398,14 +1378,14 @@
      &        538.d0*dexp(vD)*(-1.5d0*t9i52+t9i32*dvD)+&
      &        13.d0*dexp(vE)*(2.d0*t9+t92*dvE)
 
-! *** dl(7). 20Ne
 
+! *** dl(7). 20Ne
       vA=-54.93807d0*t9i
       dvA=54.93807d0*t9i2
       dl(7)=5.65d10*dexp(vA)*(deff(7)*t932+1.5d0*eff(7)*t912+eff(7)*t932*dvA)
 
-! *** deff(1) 12C+12C
 
+! *** deff(1) 12C+12C
       vA=t9/(1.d0+.0396d0*t9)
       vA56=vA**fsix
       vB=-84.165d0*vA**(-third)-2.12d-3*t93
@@ -1417,7 +1397,6 @@
      &        -1.5d0*vA56*t9i+vA56*dvB)
 
 ! *** deff(2) 12C+16O
-
       if(t9.ge..5d0) then
         vA=t9/(1.d0+.055d0*t9)
         vA56=vA**(5.d0/6.d0)
@@ -1440,8 +1419,8 @@
         deff(2)=0.d0
       endif
 
-! *** deff(3) 16O+16O
 
+! *** deff(3) 16O+16O
       vA=-135.93d0*t9i13-.629d0*t923-.445d0*t943+.0103d0*t92
 
       dvA=45.31d0*t9i43-.629d0*t9i13*2.d0/3.d0-.445d0*t913*4.d0/3.d0+.0206d0*t9
@@ -1463,8 +1442,7 @@
       SUBROUTINE chempot(temp,rho)
 
 !     CALCULATION OF THE CHEMICAL POTENTIALS
-!     INPUT: Temp - Temperature; rho - Density
-!     OUTPUT: mukbt & deltamukbt
+!     OUTPUT: mukbt & deltamukbt through nuclear90_module
 
       USE nuclear90_module
 
@@ -1478,7 +1456,6 @@
 
       integer ini1,ini2,fin1,fin2
 
-! Careful with heavy ion. They have two channels and they are not counted all!!!
 ! In these ones final2 are neutrons because they have mukbt=0, just the same as photons.
 
       ne=rho*na*ye
@@ -1513,6 +1490,7 @@
             &  +d1*dlog(gamp)-e1
          endif
       enddo
+
 ! mu for neutrons must be zero
       mukbt(3)=0.d0
       do i=2,rates
@@ -1523,6 +1501,7 @@
          fin2=final2(i)
          deltamukbt(i)=mukbt(ini1)+mukbt(ini2)-(mukbt(fin1)+mukbt(fin2))
       enddo
+
 ! Triple alpha correction. We must sum a mukbt(alpha) because there are three alfas.
 ! The intermediate step of Berillium cancels, that's why is not taken into account.
       deltamukbt(5)=deltamukbt(5)+mukbt(4)
@@ -1536,7 +1515,7 @@
 ! correct to use this coulombian corrections.
 ! In net14 it is handled as if it was truly the reaction 12C+12C->20Ne+alpha,
 ! for example, but it is more correct in this way.
-! In any case, this corrections are not absolutely perfect anyway...
+! In any case, these corrections are not absolutely perfect anyway...
       deltamukbt(1)=2.d0*mukbt(5)-mukbt(9)
       deltamukbt(3)=2.d0*mukbt(6)-mukbt(25)
       return

@@ -1,9 +1,6 @@
 path = src/
 
-#FC = ifort -c -traceback        #compile
-#LK = ifort -o runnet90  #link
-
-FC = gfortran -c -O3          #compile
+FC = gfortran -c -O3       #compile
 LK = gfortran -o runnet90  #link
 
 OBJS =\

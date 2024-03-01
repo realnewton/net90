@@ -25,18 +25,18 @@
       DOUBLE PRECISION,PARAMETER::pi=3.14159265358979323846d0
       DOUBLE PRECISION,PARAMETER::na=6.0221408576d23
       DOUBLE PRECISION,PARAMETER::kb=1.380649d-16
-      DOUBLE PRECISION,PARAMETER::e_charge=4.80320425d-10  !Charge in statC (or esu-cgs)
+      DOUBLE PRECISION,PARAMETER::e_charge=4.80320425d-10 !Charge in statC (or esu-cgs)
       DOUBLE PRECISION,PARAMETER::e2=e_charge**2 
-      !DOUBLE PRECISION,PARAMETER::e2=2.306022645d-19
       DOUBLE PRECISION,PARAMETER::third=1.d0/3.d0
       DOUBLE PRECISION,PARAMETER::sixth=1.d0/6.d0
       DOUBLE PRECISION,PARAMETER::fsix=5.d0/6.d0
       DOUBLE PRECISION,PARAMETER::MeV2erg=1.602176634d-6
-      DOUBLE PRECISION,PARAMETER::MeVperparticle2erg=na*Mev2erg !9.648529392d17
+      DOUBLE PRECISION,PARAMETER::MeVperparticle2erg=na*Mev2erg
 
       LOGICAL electroncapture,tabulated
       CHARACTER*28,PARAMETER::rates_file='src/TableratesFFNT9_corr.dat'
 
+      !Atomic masses
       DATA(a(i),i=1,iso)/0.d0,1.d0,1.d0,4.d0,12.d0,16.d0,20.d0,21.d0,&
       & 24.d0,23.d0,21.d0,23.d0,22.d0,22.d0,22.d0,25.d0,28.d0,27.d0,&
       & 25.d0,27.d0,26.d0,26.d0,26.d0,29.d0,32.d0,31.d0,29.d0,31.d0,&
@@ -48,6 +48,7 @@
       & 54.d0,57.d0,60.d0,59.d0,57.d0,59.d0,58.d0,58.d0,58.d0,57.d0,&
       & 58.d0,13.d0,0.d0/
 
+      !Atomic numbers
       data(z(i),i=1,iso)/0.,1.,0.,2.,6.,8.,10.,11.,12.,12.,10.,11.,&
       & 12.,11.,10.,13.,14.,14.,12.,13.,14.,13.,12.,15.,16.,16.,14.,&
       & 15.,16.,15.,14.,17.,18.,18.,16.,17.,18.,17.,16.,19.,20.,20.,&
@@ -56,6 +57,7 @@
       & 28.,26.,27.,28.,27.,26.,29.,30.,30.,28.,29.,30.,29.,28.,27.,&
       & 27.,7.,1./
 
+      !Binding energies
       DATA (be(i),i=1,iso)/0.d0,0.d0,0.d0,&
       &  28.296d0, 92.163d0,127.621d0,160.651d0,&
       & 163.082d0,198.263d0,181.731d0,167.412d0,186.570d0,168.584d0,&
@@ -73,6 +75,8 @@
       & 484.689d0,514.999d0,500.002d0,494.241d0,509.878d0,486.966d0,&
       & 497.115d0,506.460d0,498.282d0,506.855,94.105270,0.782d0/   
 
+      !Target element for each block from Ne20 up to Zn60 to calculate rates
+      !Some targets are reversed because we use the inverse of the inverse
       DATA (target(i),i=1,rates)/0,0,0,0,0,0,0,&
       & 7,10,13,7,14,8,8,11,9,18,21,9,22,16,16,19,&
       & 17,26,29,17,30,24,24,27,25,34,37,25,38,32,32,35,&
@@ -86,6 +90,7 @@
       & 10,18,26,34,42,50,58,66,74,82,&
       & 12,20,28,36,44,52,60,57,65,84,88,88,5,90/
 
+      !Resulting elements for each block from Ne20 up to Zn60 to calculate rates
       DATA (final(i), i=1,rates)/0,0,0,0,0,0,0,&
       & 8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,&
       & 30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,&
@@ -99,6 +104,7 @@
       & 7,9,17,25,33,41,49,57,65,73,&
       & 7,9,17,25,33,41,49,68,76,73,79,89,90,6/
 
+      !First reacting elements to calculate screening corrections
       DATA (target1(i),i=1,rates)/&
       & 5,5,6,0,4,5,6,&
       & 7,10,13,7,14,8,8,11,9,18,21,9,22,16,16,19,&
@@ -113,6 +119,7 @@
       & 7,9,17,25,33,41,49,57,65,73,&
       & 7,9,17,25,33,41,49,57,65,73,88,88,5,90/
 
+      !Second reacting elements to calculate screening corrections
       DATA (target2(i),i=1,rates)/&
       & 5,6,6,0,4,4,4,&
       & 2,3,3,3,3,2,3,3,2,3,3,3,3,2,3,3,2,3,3,3,3,2,3,3,&
@@ -125,6 +132,7 @@
       & 4,4,4,4,4,4,4,4,4,4,&
       & 4,4,4,4,4,4,4,4,4,4,2,3,2,4/
 
+      !First resulting elements to calculate screening corrections
       DATA (final1(i), i=1,rates)/7,9,17,0,5,6,7,8,9,10,11,12,13,14,15,&
       & 16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,&
       & 36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,&
@@ -138,6 +146,8 @@
       & 10,18,26,34,42,50,58,66,74,82,&
       & 12,20,28,36,44,52,60,68,76,84,79,89,90,6/
 
+      !Second resulting elements to calculate screening corrections
+      !As mu(neutrons) is zero we use neutrons for gammas too
       DATA (final2(i), i=1,rates)/4,4,4,3,3,3,3,3,3,3,&
       & 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,&
       & 3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,&
@@ -148,6 +158,7 @@
       DATA(selector(i),i=1,14)/4,5,6,7,9,17,25,33,41,49,57,65,73,81/
 
       !Data from R&T 2000 (Supplementary material of Table II)
+      !Coefficientes for rate fits
       DATA ((fit(i,j),j=1,8),i=8,rates)/&
       &      3.548986d1,-1.806713d0,3.544666d1,-6.756999d1,4.000620d0,&
       &     -2.335706d-1,3.189835d1,5.773614d1,&
@@ -449,7 +460,7 @@
       &     1.067078d1,-1.652698d3,-1.060306d3,&
       &     2.211075d2,-7.421734d0,2.953902d2,-5.512794d2,3.641244d1,&
       &    -2.338715d0,2.546778d2,2.211858d2,&
-      &     3.974749d1,-6.065431d0, 1.632396d2,-2.204577d2,8.639804d0,& !57Co(pa)54Fe
+      &     3.974749d1,-6.065431d0, 1.632396d2,-2.204577d2,8.639804d0,& !57Co(p,a)54Fe
       &    -3.458413d-1,1.314642d2,4.052174d1,&
       &     2.092363d1,-5.814042d-02,4.902177d+00,-1.050482d+01,&  !57Co+n
       &     1.011645d+00,-1.062893d-01,4.116183d+00,4.507331d+01,&   
@@ -460,6 +471,7 @@
 
 
       !Data from R&T 2000 (Supplementary material of Table V)
+      !Partition functions
       DATA ((choose(i,j),j=1,24),i=7,niso+1)/&
       &     1.000000d0,1.000000d0,1.000000d0,1.000000d0,1.000000d0,&
       &     1.000000d0,1.000000d0,1.000000d0,1.000000d0,1.000000d0,&
@@ -876,9 +888,10 @@
       &    4.061511d0,4.858520d0,5.523553d0,6.122698d0,6.688094d0,&
       &    7.244635d0,7.814514d0,8.418975d0,9.079742d0,1.0667717d1,&
       &    1.2815298d1,1.5866033d1,2.0346103d1,2.7081859d1,&
-      &    1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,&  !  N13
-      &    1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1.,1./
+      &    1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,&  !  N13
+      &    1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0,1.d0/
 
+      !Q-values
       DATA (q(i),i=8,rates)/ 2.4310d0,1.6532d1,1.3147d1,6.7610d0,1.2419d1,&
       &    5.5020d0,1.1069d1,1.0364d1,2.2710d0,1.7179d1,1.3312d1,&
       &    7.3310d0,1.3058d1,5.5180d0,1.1366d1,1.1093d1,2.7480d0,&
