@@ -3,11 +3,8 @@ subroutine helmeos(temp1,den,abar,zbar,pres,ener,denerdt,dpresdt,dUdYe)
 USE const_eos_mod
 USE helm_table_storage_mod
 
-include 'implno.dek'
-!include 'EOS/const.dek'
-!include 'EOS/vector_eos.dek'
-!include 'EOS/helm_table_storage.dek'
-
+!include 'implno.dek'
+implicit none
 
 ! given a temperature temp [K], density den [g/cm**3], and a composition
 ! characterized by abar and zbar, this routine returns most of the other
@@ -27,8 +24,6 @@ include 'implno.dek'
 !
 ! references: cox & giuli chapter 24 ; timmes & swesty apj 1999
 
-
-! declare
 double precision,intent(in)::temp1,den,abar,zbar
 integer          i,j
 double precision ytot1,ye, &

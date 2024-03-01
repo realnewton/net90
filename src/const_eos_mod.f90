@@ -7,6 +7,8 @@ MODULE const_eos_mod
 
 
 ! math constants
+      implicit none
+
       real*8, parameter:: pi       = 3.1415926535897932384d0, &
                           eulercon = 0.577215664901532861d0, &
                           a2rad    = pi/180.0d0,  rad2a = 180.0d0/pi
@@ -32,7 +34,7 @@ MODULE const_eos_mod
                            asol    = 4.0d0 * ssol / clight, &
                            weinlam = h*clight/(kerg * 4.965114232d0), &
                            weinfre = 2.821439372d0*kerg/h, &
-                            rhonuc  = 2.342d14
+                           rhonuc  = 2.342d14
 
 
 ! astronomical constants

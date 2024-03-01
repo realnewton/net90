@@ -13,9 +13,7 @@ double precision tsav,dsav,dth,dt2,dti,dt2i,dt3i, &
 
 
 ! open the file (use softlinks to input the desired table)
-
  open(unit=19,file='src/helm_table.dat',status='old')
-
 
 ! for standard table limits
  tlo   = 3.0d0
@@ -47,7 +45,6 @@ double precision tsav,dsav,dth,dt2,dti,dt2i,dt3i, &
    read(19,*) dpdf(i,j),dpdfd(i,j),dpdft(i,j),dpdfdt(i,j)
   enddo
  enddo
-!       write(6,*) 'read dpdd table'
 
 ! read the electron chemical potential table
  do j=1,jmax
@@ -55,7 +52,6 @@ double precision tsav,dsav,dth,dt2,dti,dt2i,dt3i, &
    read(19,*) ef(i,j),efd(i,j),eft(i,j),efdt(i,j)
   enddo
  enddo
-!       write(6,*) 'read eta table'
 
 ! read the number density table
  do j=1,jmax
@@ -63,11 +59,9 @@ double precision tsav,dsav,dth,dt2,dti,dt2i,dt3i, &
    read(19,*) xf(i,j),xfd(i,j),xft(i,j),xfdt(i,j)
   enddo
  enddo
-!       write(6,*) 'read xne table'
 
 ! close the file
 close(unit=19)
-
 
 ! construct the temperature and density deltas and their inverses
  do j=1,jmax-1
@@ -94,17 +88,6 @@ close(unit=19)
   dd2i_sav(i) = dd2i
   dd3i_sav(i) = dd3i
  enddo
-
-
-
-!      write(6,*)
-!      write(6,*) 'finished reading eos table'
-!      write(6,04) 'imax=',imax,' jmax=',jmax
-!04    format(1x,4(a,i4))
-!      write(6,03) 'temp(1)   =',t(1),' temp(jmax)   =',t(jmax)
-!      write(6,03) 'ye*den(1) =',d(1),' ye*den(imax) =',d(imax)
-!03    format(1x,4(a,1pe11.3))
-!      write(6,*)
 
 return
 end

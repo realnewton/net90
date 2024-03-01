@@ -1,5 +1,6 @@
 MODULE helm_table_storage_mod
 
+      implicit none
 ! sizes of the tables
 ! normal table, big table, bigger table, denser bigger table
 
