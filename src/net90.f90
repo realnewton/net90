@@ -24,23 +24,6 @@
 !     *** k_iter    (I): Total number of Newton-Raphson iterations
 !
 ! ***************
-!                       ** REWRITE THIS FOR THE 86 ISOTOPE NETWORK **
-
-!     *** a: array of mass number of all isotopes.
-!     *** be: array of binding energy of all isotopes refered to 4He.
-!     *** Isotopes order: (From 2 to 15)
-!     (4He,12C,16O,20Ne,24Mg,28Si,32S,36Ar,40Ca,44Ti,48Cr,52Fe,56Ni,60Zn)
-!     (Position 1 of array is not used)
-!
-!     *** eff: array of the direct reaction rates values.
-!     *** l: array of the inverse reaction rates values.
-!     *** deff, dl: derivatives of eff and l respect to the temperature.
-!
-!     *** Reactions order: (From 2 to 17)
-!     (From 2 to 14) triple alpha, 12C(a,g)16O, 16O(a,g)20Ne, ...
-!     (From 15 to 17) Heavy Ion: 12C(12C,a)20Ne, 12C(16O,a)24Mg, 16O(16O,a)28Si
-!
-! ***********************************************************************
 ! ***********************************************************************
 
   SUBROUTINE net90(tempin,xin,rho,delta,screen,cv,val1,val2,dUedYein,theta,&
