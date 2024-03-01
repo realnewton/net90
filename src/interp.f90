@@ -4,7 +4,7 @@ subroutine interp(t,rhoye,interpolated)
                             &logrhoYe_rates,data_rate
 
   implicit none
-  INTEGER i,it,ir,it1,it2,ir1,ir2,v1,v2,v3,v4
+  INTEGER i,it1,it2,ir1,ir2,v1,v2,v3,v4
   DOUBLE PRECISION logtemp,logrhoye,x2x,y2y,xx1,yy1,x2x1,y2y1
   DOUBLE PRECISION, intent(in):: t,rhoye
   DOUBLE PRECISION, dimension(nc),intent(out)::interpolated
