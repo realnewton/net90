@@ -6,7 +6,7 @@ Electron/positron captures are included only on protons/neutrons.
 Temperature is coupled and solved jointly with the nuclear species.
 
 <p align="center">
-  <img src="[https://raw.githubusercontent.com/unibas-dmi-hpc/SPH-EXA/develop/docs/artwork/SPH-EXA_logo.png](https://raw.githubusercontent.com/realnewton/net90/main/Net90architecture.png)" alt="SPH-EXA logo" width="1000"/>
+  <img src="[https://raw.githubusercontent.com/unibas-dmi-hpc/SPH-EXA/develop/docs/artwork/SPH-EXA_logo.png](https://raw.githubusercontent.com/realnewton/net90/main/Net90architecture.png)" alt="Network architecture" width="300"/>
 </p>
 
 # Nuclear species included 
