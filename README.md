@@ -15,10 +15,20 @@ To compile simply do `make` and this will generate an executable `runnet90`.
 Only a fortran compiler is needed. Our makefile assumes that `gfortran` is available.
 
 ## Calling `net90`
-From the main code:
+Only abundance-related magnitudes need to be imported from the main code:</br>
 (D) Double precision, (I) Integer, (L) Logical
 ```
-call net90(tempin,xin,rho,delta,screen,ecapture,tabulated,cv,val1,val2,dUedYein,theta,tempout,xout,sumtot,nucenergy,k_iter)
+USE nuclear90_module, only:niso,ye,a,z
+```
+* niso      (I): nuclear species (=89)
+* ye        (D): electron abundance
+* a[1:niso] (D): array of atomic mass of each species
+* z[1:niso] (D): array of atomic number of each species
+
+Then, to call `net90`:
+```
+call net90(tempin,xin,rho,delta,screen,ecapture,tabulated,cv,val1,val2,dUedYein,theta,&
+         & tempout,xout,sumtot,nucenergy,k_iter)
 ```
 
 INPUT:
