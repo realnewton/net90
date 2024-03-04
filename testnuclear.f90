@@ -60,8 +60,7 @@
 
   PROGRAM testnuclear
 
-    USE nuclear90_module, only:iso,niso,cp,ca,op,oa,ye,a,z,&
-              & NR_iter,NR_limit,electroncapture,tabulated
+    USE nuclear90_module, only:iso,niso,ye,a,z
 
     IMPLICIT NONE
 
@@ -79,7 +78,7 @@
     INTEGER max_abound,type_eos
     INTEGER i,j
 
-    LOGICAL adiab,isotherm,screen,isExpand,expt
+    LOGICAL adiab,isotherm,screen,isExpand,expt,ecapture,tabulated
 
     DOUBLE PRECISION temp,tempout,dens,delta,cv,v1,v2,sumtot
     DOUBLE PRECISION densold,deltadens,pres,Utotal,dUdYe
@@ -103,15 +102,9 @@
     read(1,*) admy,screen
     read(1,*) admy,adiab
     read(1,*) admy,isotherm
-    read(1,*) admy,electroncapture
+    read(1,*) admy,ecapture
     read(1,*) admy,tabulated
     read(1,*) admy,theta
-    read(1,*) admy,cp
-    read(1,*) admy,ca
-    read(1,*) admy,op
-    read(1,*) admy,oa
-    read(1,*) admy,NR_iter
-    read(1,*) admy,NR_limit
     read(1,*) admy,type_eos
     close(1)
     allocate(k_iter(10000))
@@ -180,7 +173,7 @@
          if(isotherm.and..not.isExpand) cv=cv*1.d20
 
          !Call nuclear network
-         call net90(temp,x,dens,delta,screen,cv,v1,v2,dUdYe,theta,&
+         call net90(temp,x,dens,delta,screen,ecapture,tabulated,cv,v1,v2,dUdYe,theta,&
                   & tempout,xout,sumtot,nucenergy,k_iter(i))                  
 
          !Timestep control

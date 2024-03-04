@@ -5,8 +5,7 @@
       INTEGER,PARAMETER::niso=89,iso=niso+2,rates=161,nds=11,ndi=11,ijd=7
       INTEGER,PARAMETER::nt=41,nr=51,nc=12
 
-      INTEGER i,j,k,NR_iter
-      DOUBLE PRECISION ca,cp,oa,op,NR_limit
+      INTEGER i,j,k
       DOUBLE PRECISION ye,effe,deffe,deffedYe,dUedYe,Eneutr,dEneutr,dEneutrdYe !Electron Capture
       DOUBLE PRECISION effp,deffp,deffpdYe,Eaneutr,dEaneutr,dEaneutrdYe !Positron Capture
       INTEGER,DIMENSION(rates)::target,target1,target2,final,final1,final2
@@ -33,7 +32,14 @@
       DOUBLE PRECISION,PARAMETER::MeV2erg=1.602176634d-6
       DOUBLE PRECISION,PARAMETER::MeVperparticle2erg=na*Mev2erg
 
-      LOGICAL electroncapture,tabulated
+      DOUBLE PRECISION,PARAMETER:: ca=0.5d0 !Probability of 12C+12C->20Ne+4He branch
+      DOUBLE PRECISION,PARAMETER:: cp=0.5d0 !Probability of 12C+12C->23Na+p branch
+      DOUBLE PRECISION,PARAMETER:: oa=0.4d0 !Probability of 16O+16O->28S+a branch
+      DOUBLE PRECISION,PARAMETER:: op=0.6d0 !Probability of 16O+16O->31P+p branch
+
+      DOUBLE PRECISION,PARAMETER:: NR_limit=1.d-7 !Convergence limit for NR iterations
+      INTEGER,PARAMETER         :: NR_iter =10    !Convergence limit for NR iterations
+
       CHARACTER*28,PARAMETER::rates_file='src/TableratesFFNT9_corr.dat'
 
       !Atomic masses

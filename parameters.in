@@ -95,10 +95,4 @@ Isotherm_test F
 electron_capt T
   tabul_rates T
         Theta 0.7d0
-C(c_p)Na_prob 0.5d0
-C(c_a)Ne_prob 0.5d0
- O(O_p)P_prob 0.6d0  
- O(O_a)S_prob 0.4d0
-  NR_max_iter 10
-     NR_limit 1.d-7  
      type_eos 2

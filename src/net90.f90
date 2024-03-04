@@ -26,7 +26,7 @@
 ! ***************
 ! ***********************************************************************
 
-  SUBROUTINE net90(tempin,xin,rho,delta,screen,cv,val1,val2,dUedYein,theta,&
+  SUBROUTINE net90(tempin,xin,rho,delta,screen,ecapture,tabulated,cv,val1,val2,dUedYein,theta,&
                  & tempout,xout,sumtot,nucenergy,k_iter)
 
       USE nuclear90_module
@@ -37,7 +37,7 @@
       DOUBLE PRECISION,INTENT(in),DIMENSION(niso)  :: xin
       DOUBLE PRECISION,INTENT(out),DIMENSION(niso) :: xout
       
-      LOGICAL,INTENT(in)   :: screen
+      LOGICAL,INTENT(in)   :: screen,ecapture,tabulated
       INTEGER, INTENT(out) :: k_iter
       
       DOUBLE PRECISION EF,maxrow,temp,correction
@@ -105,7 +105,7 @@
          ! Subroutine direct also calculates nu and nubar energy losses
          call effect(temp)
          call deffcalc(temp)
-         call direct(temp,rho) !We need rho here for electronic rates, but can be removed when using table.
+         call direct(temp,rho,ecapture,tabulated) !We need rho here for electronic rates, but can be removed when using table.
          call inverse(temp)
          do i=1,rates
             eff(i)=eff(i)*rho
@@ -249,13 +249,14 @@
 ! *** SUBROUTINE direct.
 ! *** Calculates the direct nuclear reaction rates using RT00
 ! *** From 20Ne(a,g)24Mg to 56Ni(a,g)60Zn
-      SUBROUTINE direct(temp,rho)
+      SUBROUTINE direct(temp,rho,ecapture,tabulated)
 
       USE nuclear90_module
 
       IMPLICIT NONE
 
       DOUBLE PRECISION,INTENT(in)::temp,rho
+      LOGICAL,INTENT(in)::ecapture,tabulated
 
       DOUBLE PRECISION t9,t913,t923,t953,t9i,t9i2,t9i13,t9i23,t9i43,lt9
       DOUBLE PRECISION ue,ue2,ue3,ue4,ue5,ue6,due,ueaux,t92,t93,t94,t95,t96,t9i3
@@ -296,7 +297,7 @@
 
       ! Electron capture Rate (effe) and Derivatives (deffe=deffe/dT and deffedYe=deffe/dYe)
       ! Energy of neutrinos and dUe/dYe:
-      if(electroncapture) then
+      if(ecapture) then
         if(tabulated) then
           call interp(temp,rho*y(iso),interpolated)
           effe=interpolated(1)
@@ -369,7 +370,7 @@
           ! dxdYe=bx*third*rho**third*ye**(-2.d0*third)
           ! dUedYe=dUedx*dxdYe/rho
         endif
-      else !Possibility to deactivate electron captures if electroncapture=.false.
+      else !Possibility to deactivate electron captures if ecapture=.false.
         effe=0.d0
         deffe=0.d0
         deffedYe=0.d0
