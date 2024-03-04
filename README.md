@@ -18,7 +18,7 @@ Only a fortran compiler is needed. Our makefile assumes that `gfortran` is avail
 From the main code:
 (D) Double precision, (I) Integer, (L) Logical
 ```
-call net90(tempin,xin,rho,delta,screen,cv,val1,val2,dUedYein,theta,tempout,xout,sumtot,nucenergy,k_iter)
+call net90(tempin,xin,rho,delta,screen,ecapture,tabulated,cv,val1,val2,dUedYein,theta,tempout,xout,sumtot,nucenergy,k_iter)
 ```
 
 INPUT:
@@ -26,7 +26,9 @@ INPUT:
 * xin       (D): mass fractions
 * rho       (D): density (g/cm^3) of the current time-step
 * delta     (D): time-step in seconds
-* screen    (L): Turns the screening corrections to the rates on/off
+* screen    (L): Activates/deactivates the screening corrections to the rates
+* ecapture  (L): Activates/deactivates e-/e+ reactions
+* tabulated (L): (T) e-/e+ rates interpolating on a table; (F) e-/e+ rates analytically
 * cv        (D): heat capacity (from EOS)
 * val1      (D): (dp/dTemp)*(deltarho/rho**2)
 * val2      (D): (dp/dTemp)*(deltarho/rho**2)*Temp
@@ -45,18 +47,12 @@ OUTPUT:
 - Mass fractions of each species (D)
 - Initial_temp  (D): initial temperature in K
 - Initial_dens  (D): initial density in g/cm^3
-- Screening     (L): Activates the screening corrections
+- Screening     (L): Activates/deactivates the screening corrections
 - Adiabatic_exp (L): (T) an adiabatic expansion follows after NSE; (F) the process is isochoric
 - Isotherm_test (L): (T) temperature is kept constant via an artificially high cv; (F) temperature is updated by net90
-- electron_capt (L): Activates e-/e+ reactions
+- electron_capt (L): Activates/deactivates e-/e+ reactions
 - tabul_rates   (L): (T) e-/e+ rates interpolating on a table; (F) e-/e+ rates analytically
 - Theta         (D): Chooses between explicit (0), implicit (1), or mixed. Default value is 0.7d0
-- C(c_p)Na_prob (D): Probability of 12C+12C->23Na+p branch. Default value is 0.5d0
-- C(c_a)Ne_prob (D): Probability of 12C+12C->20Ne+4He branch. Default value is 0.5d0
-- O(O_p)P_prob  (D): Probability of 16O+16O->31P+p branch. Default value is 0.6d0
-- O(O_a)S_prob  (D): Probability of 16O+16O->28S+a branch. Default value is 0.4d0
-- NR_max_iter   (I): Maximum number of Newton-Raphson iterations in net90 per timestep. Default value is 10
-- NR_limit      (D): Convergence limit for NR iterations. Default value is 1.d-7  
 - type_eos      (I): Selects the EOS. (1) relativistic electrons (Nadyozhin 1974), ions (Bravo & Garcia-Senz 1992), and radiation; (2) helmholtz EOS (Cox & Giuli chapter 24; Timmes & Swesty ApJ 1999)
 
 # Nuclear species included 
@@ -86,8 +82,12 @@ OUTPUT:
 |20|Si26|40|Ca40|60|Cr46|80|Zn60|
 
 # References
-Cabezon et al. ApJS 151 (2004)
-Garcia-Senz el al. (2024) Upcoming
+- Garcia-Senz, Cabezon, Reichert, Sanz, Escartin, Psaltis, Arcones, Thielemann; (2024) Upcoming
+- Sanz, Cabezon, Garcia-Senz; [NIC-XVI, 260 (2022)](https://ui.adsabs.harvard.edu/abs/2022EPJWC.26011036S/abstract)
+- Cabezon, Garcia-Senz, Bravo; [ApJS 151 (2004)](https://ui.adsabs.harvard.edu/abs/2004ApJS..151..345C/abstract)
+- Garcia-Senz, Cabezon; [NPA, 718 (2003)](https://ui.adsabs.harvard.edu/abs/2003NuPhA.718..566G/abstract)
 
-# Authors
-Ruben M. Cabezon & D. García-Senz (2023)
+# Authors (in alphabetical order)
+Ruben M. Cabezon: (sciCORE) University of Basel</br>
+Domingo Garcia-Senz: Polytechnic University of Catalonia</br>
+Axel Sanz: Polytechnic University of Catalonia
