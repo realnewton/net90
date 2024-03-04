@@ -66,7 +66,7 @@ OUTPUT:
 - type_eos      (I): Selects the EOS. (1) relativistic electrons (Nadyozhin 1974), ions (Bravo & Garcia-Senz 1992), and radiation; (2) helmholtz EOS (Cox & Giuli chapter 24; Timmes & Swesty ApJ 1999)
 
 # Nuclear species included 
-... and their corresponding index in the mass fraction array
+Corresponding index in the mass fraction array
 
 | index | Element | index | Element | index | Element | index | Element | index | Element |
 |--|---|--|---|--|---|--|---|--|---|
