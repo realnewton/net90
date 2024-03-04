@@ -15,24 +15,30 @@ To compile simply do `make` and this will generate an executable `runnet90`.
 Only a fortran compiler is needed. Our makefile assumes that `gfortran` is available.
 
 ## Calling `net90`
+From the main code:
+(D) Double precision, (I) Integer, (L) Logical
+```
+call net90(tempin,xin,rho,delta,screen,cv,val1,val2,dUedYein,theta,tempout,xout,sumtot,nucenergy,k_iter)
+```
+
 INPUT:
 * tempin    (D): temperature
 * xin       (D): mass fractions
 * rho       (D): density (g/cm^3) of the current time-step
 * delta     (D): time-step in seconds
 * screen    (L): Turns the screening corrections to the rates on/off
-* cv        (D): heat capacity.
+* cv        (D): heat capacity (from EOS)
 * val1      (D): (dp/dTemp)*(deltarho/rho**2)
 * val2      (D): (dp/dTemp)*(deltarho/rho**2)*Temp
 * dUedYein  (D): dUe/dYe (from EOS)
-* theta     (D): =1 for fully implicit method.
+* theta     (D): Chooses between explicit (0), implicit (1), or mixed. Recommended value is 0.7d0
 
 OUTPUT:
 * tempout   (D): temperature
 * xout      (D): mass fractions
 * sumtot    (D): total mass fraction (=1 if conserved)
 * nucenergy (D): total nuclear energy generation rate (erg/s)
-* k_iter    (I): Total number of Newton-Raphson iterations
+* k_iter    (I): Total number of Newton-Raphson iterations performed
 
 ## Description of `parameters.in` for toy scenarios
 
