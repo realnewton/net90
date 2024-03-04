@@ -60,7 +60,7 @@
 
   PROGRAM testnuclear
 
-    USE nuclear90_module, only:iso,niso,ye,a,z
+    USE nuclear90_module, only:niso,ye,a,z
 
     IMPLICIT NONE
 
