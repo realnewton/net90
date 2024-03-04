@@ -1,9 +1,7 @@
 # net90
 
-Nuclear network for hydrodynamical simulations. Specially suited for Type Ia SN simulations.
-It includes 89 nuclear species + electrons
-Electron/positron captures are included only on protons/neutrons.
-Temperature is coupled and solved jointly with the nuclear species.
+Nuclear network for hydrodynamical simulations. Specially suited for Type Ia SN simulations. It includes 89 nuclear species + electrons.</BR>
+Electron/positron captures are included only on free protons/neutrons. Temperature is coupled and solved jointly with the nuclear species with an implicit scheme.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/realnewton/net90/main/Net90architecture.png" alt="Network architecture" width="1000"/>
