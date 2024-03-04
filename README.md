@@ -91,6 +91,56 @@ Corresponding index in the mass fraction array
 |19|Al27|39|K37|59|V47|79|Cu57|
 |20|Si26|40|Ca40|60|Cr46|80|Zn60|
 
+Corresponding index in the reaction rate arrays
+
+| index | Reaction | index | Reaction | index | Reaction | index | Reaction 
+|--|---|--|---|--|---|--|---|
+|1|12C(12C,a)20Ne|46|37K(n,g)38K|91|23Na(p,g)24Mg|136|52Fe(a,g)56Ni
+|2|12C(16O,a)24Mg|47|37Ar(n,g)38Ar|92|25Mg(p,g)26Al|137|56Ni(a,g)60Zn|
+|3|16O(16O,a)28Si|48|40Ca(p,g)41Sc|93|26Al(p,g)27Si|138|20Ne(a,n)23Mg|
+|4|-|49|43Ti(n,g)44Ti|94|26Mg(p,g)27Al|139|24Mg(a,n)27Si|
+|5|a(2a,g)12C|50|42Ti(n,g)43Ti|95|27Al(p,g)28Si|140|28Si(a,n)31S|
+|6|12C(a,g)16O|51|40Ca(n,g)41Ca|96|29Si(p,g)30P|141|32S(a,n)35Ar|
+|7|16O(a,g)20Ne|52|42Sc(n,g)43Sc|97|30P(p,g)31S|142|36Ar(a,n)39Ca|
+|8|20Ne(p,g)21Na|53|41Sc(p,g)42Ti|98|30Si(p,g)31P|143|40Ca(a,n)43Ti|
+|9|23Mg(n,g)24Mg|54|41Sc(n,g)42Sc|99|31P(p,g)32S|144|44Ti(a,n)47Cr|
+|10|22Mg(n,g)23Mg|55|41Ca(n,g)42Ca|100|33S(p,g)34Cl|145|48Cr(a,n)51Fe|
+|11|20Ne(n,g)21Ne|56|44Ti(p,g)45V|101|34Cl(p,g)35Ar|146|52Fe(a,n)55Ni|
+|12|22Na(n,g)23Na|57|47Cr(n,g)48Cr|102|34S(p,g)35Cl|147|56Ni(a,n)59Zn|
+|13|21Na(p,g)22Mg|58|46Cr(n,g)47Cr|103|35Cl(p,g)36Ar|148|20Ne(a,p)23Na|
+|14|21Na(n,g)22Na|59|44Ti(n,g)45Ti|104|37Ar(p,g)38K|149|24Mg(a,p)27Al|
+|15|21Ne(n,g)22Ne|60|46V(n,g)47V|105|38K(p,g)39Ca|150|28Si(a,p)31P|
+|16|24Mg(p,g)25Al|61|45V(p,g)46Cr|106|38Ar(p,g)39K|151|32S(a,p)35Cl|
+|17|27Si(n,g)28Si|62|45V(n,g)46V|107|39K(p,g)40Ca|152|36Ar(a,p)39K|
+|18|26Si(n,g)27Si|63|45Ti(n,g)46Ti|108|41Ca(p,g)42Sc|153|40ca(a,p)43Sc|
+|19|24Mg(n,g)25Mg|64|48Cr(p,g)49Mn|109|42Sc(p,g)43Ti|154|44Ti(a,p)47V|
+|20|26Al(n,g)27Al|65|51Fe(n,g)52Fe|110|42Ca(p,g)43Sc|155|48Cr(a,p)51Mn|
+|21|25Al(p,g)26Si|66|50Fe(n,g)51Fe|111|43Sc(p,g)44Ti|156|52Fe(a,p)55Co|
+|22|25Al(n,g)26Al|67|48Cr(n,g)49Cr|112|45Ti(p,g)46V|157|56Ni(a,p)59Cu|
+|23|25Mg(n,g)26Mg|68|50Mn(n,g)51Mn|113|46V(p,g)47Cr|158|54Fe(a,p)57Co|
+|24|28Si(p,g)29P|69|49Mn(p,g)50Fe|114|46Ti(p,g)47V|159|57Co(n,g)58Co|
+|25|31S(n,g)32S|70|49Mn(n,g)50Mn|115|47V(p,g)48Cr|160|12C(p,g)13N|
+|26|30S(n,g)31S|71|49Cr(n,g)50Cr|116|49Cr(p,g)50Mn|161|13N(a,p)16O|
+|27|28Si(n,g)29Si|72|52Fe(p,g)53Co|117|50Mn(p,g)51Fe|
+|28|30P(n,g)31P|73|55Ni(n,g)56Ni|118|50Cr(p,g)51Mn|
+|29|29P(p,g)30S|74|54Ni(n,g)55Ni|119|51Mn(p,g)52Fe|
+|30|29P(n,g)30P|75|52Fe(n,g)53Fe|120|53Fe(p,g)54Co|
+|31|29Si(n,g)30Si|76|54Co(n,g)55Co|121|54Co(p,g)55Ni|
+|32|32S(p,g)33Cl|77|53Co(p,g)54Ni|122|54Fe(p,g)55Co|
+|33|35Ar(n,g)36Ar|78|53Co(n,g)54Co|123|55Co(p,g)56Ni|
+|34|34Ar(n,g)35Ar|79|53Fe(n,g)54Fe|124|57Ni(p,g)58Cu|
+|35|32S(n,g)33S|80|56Ni(p,g)57Cu|125|58Cu(p,g)59Zn|
+|36|34Cl(n,g)35Cl|81|59Zn(n,g)60Zn|126|58Ni(p,g)59Cu|
+|37|33Cl(p,g)34Ar|82|58Zn(n,g)59Zn|127|59Cu(p,g)60Zn|
+|38|33Cl(n,g)34Cl|83|56Ni(n,g)57Ni|128|20Ne(a,g)24Mg|
+|39|33S(n,g)34S|84|58Cu(n,g)59Cu|129|24Mg(a,g)28Si|
+|40|36Ar(p,g)37K|85|57Cu(p,g)58Zn|130|28Si(a,g)32S|
+|41|39Ca(n,g)40Ca|86|57Cu(n,g)58Cu|131|32S(a,g)36Ar|
+|42|38Ca(n,g)39Ca|87|57Ni(n,g)58Ni|132|36Ar(a,g)40ca|
+|43|36Ar(n,g)37Ar|88|21Ne(p,g)22Na|133|40ca(a,g)44Ti|
+|44|38K(n,g)39K|89|22Na(p,g)23Mg|134|44Ti(a,g)48Cr|
+|45|37K(p,g)38Ca|90|22Ne(p,g)23Na|135|48Cr(a,g)52Fe|
+
 # References
 - Garcia-Senz, Cabezon, Reichert, Sanz, Escartin, Psaltis, Arcones, Thielemann; (2024) Upcoming
 - Sanz, Cabezon, Garcia-Senz; [NIC-XVI, 260 (2022)](https://ui.adsabs.harvard.edu/abs/2022EPJWC.26011036S/abstract)
