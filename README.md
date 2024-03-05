@@ -68,36 +68,36 @@ Corresponding index in the mass fraction array
 
 | index | Element | index | Element | index | Element | index | Element | index | Element |
 |--|---|--|---|--|---|--|---|--|---|
-|1|p|21|Al26|41|Ca39|61|V46|81|Zn59|
-|2|n|22|Mg26|42|Ar37|62|Ti46|82|Ni57|
-|3|He4|23|P29|43|K39|63|Mn49|83|Cu59|
-|4|C12|24|S32|44|Ca38|64|Fe52|84|Zn58|
-|5|O16|25|S31|45|K38|65|Fe51|85|Cu58|
-|6|Ne20|26|Si29|46|Ar38|66|Cr49|86|Ni58|
-|7|Na21|27|P31|47|Sc41|67|Mn51|87|Co57|
-|8|Mg24|28|S30|48|Ti44|68|Fe50|88|Co58|
-|9|Mg23|29|P30|49|Ti43|69|Mn50|89|N13
-|10|Ne21|30|Si30|50|Ca41|70|Cr50|
-|11|Na23|31|Cl33|51|Sc43|71|Co53|
-|12|Mg22|32|Ar36|52|Ti42|72|Ni56|
-|13|Na22|33|Ar35|53|Sc42|73|Ni55|
-|14|Ne22|34|S33|54|Ca42|74|Fe53|
-|15|Al25|35|Cl35|55|V45|75|Co55|
-|16|Si28|36|Ar34|56|Cr48|76|Ni54|
-|17|Si27|37|Cl34|57|Cr47|77|Co54|
-|18|Mg25|38|S34|58|Ti45|78|Fe54|
-|19|Al27|39|K37|59|V47|79|Cu57|
-|20|Si26|40|Ca40|60|Cr46|80|Zn60|
+|1|p|21|26Al|41|39Ca|61|46V|81|59Zn|
+|2|n|22|26Mg|42|37Ar|62|46Ti|82|57Ni|
+|3|4He|23|29P|43|39K|63|49Mn|83|59Cu|
+|4|12C|24|32S|44|38Ca|64|52Fe|84|58Zn|
+|5|16O|25|31S|45|38K|65|51Fe|85|58Cu|
+|6|20Ne|26|29Si|46|38Ar|66|49Cr|86|58Ni|
+|7|21Na|27|31P|47|41Sc|67|51Mn|87|57Co|
+|8|24Mg|28|30S|48|44Ti|68|50Fe|88|59Co|
+|9|23Mg|29|30P|49|43Ti|69|50Mn|89|13N|
+|10|21Ne|30|30Si|50|41Ca|70|50Cr|
+|11|23Na|31|33Cl|51|43Sc|71|53Co|
+|12|22Mg|32|36Ar|52|42Ti|72|56Ni|
+|13|22Na|33|35Ar|53|42Sc|73|55Ni|
+|14|22Ne|34|33S|54|42Ca|74|53Fe|
+|15|25Al|35|35Cl|55|45V|75|55Co|
+|16|28Si|36|34Ar|56|48Cr|76|54Ni|
+|17|27Si|37|34Cl|57|47Cr|77|54Co|
+|18|25Mg|38|34S|58|45Ti|78|54Fe|
+|19|27Al|39|37K|59|47V|79|57Cu|
+|20|26Si|40|40Ca|60|46Cr|80|60Zn|
 
 Corresponding index in the reaction rate arrays
 
 | index | Reaction | index | Reaction | index | Reaction | index | Reaction 
 |--|---|--|---|--|---|--|---|
-|1|12C(12C,a)20Ne|46|37K(n,g)38K|91|23Na(p,g)24Mg|136|52Fe(a,g)56Ni
+|1|12C(12C,a)20Ne [^1]|46|37K(n,g)38K|91|23Na(p,g)24Mg|136|52Fe(a,g)56Ni
 |2|12C(16O,a)24Mg|47|37Ar(n,g)38Ar|92|25Mg(p,g)26Al|137|56Ni(a,g)60Zn|
-|3|16O(16O,a)28Si|48|40Ca(p,g)41Sc|93|26Al(p,g)27Si|138|20Ne(a,n)23Mg|
+|3|16O(16O,a)28Si [^2]|48|40Ca(p,g)41Sc|93|26Al(p,g)27Si|138|20Ne(a,n)23Mg|
 |4|-|49|43Ti(n,g)44Ti|94|26Mg(p,g)27Al|139|24Mg(a,n)27Si|
-|5|a(2a,g)12C|50|42Ti(n,g)43Ti|95|27Al(p,g)28Si|140|28Si(a,n)31S|
+|5|a(2a,g)12C [^3]|50|42Ti(n,g)43Ti|95|27Al(p,g)28Si|140|28Si(a,n)31S|
 |6|12C(a,g)16O|51|40Ca(n,g)41Ca|96|29Si(p,g)30P|141|32S(a,n)35Ar|
 |7|16O(a,g)20Ne|52|42Sc(n,g)43Sc|97|30P(p,g)31S|142|36Ar(a,n)39Ca|
 |8|20Ne(p,g)21Na|53|41Sc(p,g)42Ti|98|30Si(p,g)31P|143|40Ca(a,n)43Ti|
@@ -119,8 +119,8 @@ Corresponding index in the reaction rate arrays
 |24|28Si(p,g)29P|69|49Mn(p,g)50Fe|114|46Ti(p,g)47V|159|57Co(n,g)58Co|
 |25|31S(n,g)32S|70|49Mn(n,g)50Mn|115|47V(p,g)48Cr|160|12C(p,g)13N|
 |26|30S(n,g)31S|71|49Cr(n,g)50Cr|116|49Cr(p,g)50Mn|161|13N(a,p)16O|
-|27|28Si(n,g)29Si|72|52Fe(p,g)53Co|117|50Mn(p,g)51Fe|
-|28|30P(n,g)31P|73|55Ni(n,g)56Ni|118|50Cr(p,g)51Mn|
+|27|28Si(n,g)29Si|72|52Fe(p,g)53Co|117|50Mn(p,g)51Fe|-|p(e-,nu)n [^4]|
+|28|30P(n,g)31P|73|55Ni(n,g)56Ni|118|50Cr(p,g)51Mn|-|n(e+,anu)p [^4]|
 |29|29P(p,g)30S|74|54Ni(n,g)55Ni|119|51Mn(p,g)52Fe|
 |30|29P(n,g)30P|75|52Fe(n,g)53Fe|120|53Fe(p,g)54Co|
 |31|29Si(n,g)30Si|76|54Co(n,g)55Co|121|54Co(p,g)55Ni|
@@ -138,6 +138,11 @@ Corresponding index in the reaction rate arrays
 |43|36Ar(n,g)37Ar|88|21Ne(p,g)22Na|133|40ca(a,g)44Ti|
 |44|38K(n,g)39K|89|22Na(p,g)23Mg|134|44Ti(a,g)48Cr|
 |45|37K(p,g)38Ca|90|22Ne(p,g)23Na|135|48Cr(a,g)52Fe|
+
+[^1]: This reaction is split into two branches: 50% 12C(12C,a)20Ne, 50% 12C(12C,p)23Na
+[^2]: This reaction is split into two branches: 40% 16O(16O,a)28Si, 60% 16O(16O,p)31P
+[^3]: The triple alpha reaction is calculated in two steps via 8Be
+[^4]: electron and positron reactions are stored independently, hence they don't have an associated index
 
 # References
 - Garcia-Senz, Cabezon, Reichert, Sanz, Escartin, Psaltis, Arcones, Thielemann; (2024) Upcoming
