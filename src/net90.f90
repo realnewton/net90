@@ -260,7 +260,8 @@
 
       DOUBLE PRECISION t9,t913,t923,t953,t9i,t9i2,t9i13,t9i23,t9i43,lt9
       DOUBLE PRECISION ue,ue2,ue3,ue4,ue5,ue6,due,ueaux,t92,t93,t94,t95,t96,t9i3
-      DOUBLE PRECISION aue,b,bx,x,x2,x3,x4,aux,invaux,dxdYe,dUedx,dUdYe,alfa,beta
+      DOUBLE PRECISION dUdYe
+      !DOUBLE PRECISION aue,b,bx,x,x2,aux,invaux,dxdYe,dUedx
       DOUBLE PRECISION,DIMENSION(nc):: interpolated
 
       t9=temp/1.d9
@@ -353,22 +354,20 @@
           dEneutrdYe=dEneutrdYe*4.93d17
 
           
-          ! Calculation of dUe/dYe from Chandrasekhar expression (not necessary)
-          ! dUedYe comes from EOS
-
-          ! aue=6.01d22
-          ! b=1.1218d-18
-          ! bx=1.006d-02
-          ! x=bx*(rho*ye)**third
-          ! x2=x*x
-          ! x3=x2*x
-          ! x4=x3*x
-          ! aux=sqrt(x2+1.d0)
-          ! invaux=1.d0/aux
-          ! dUedx=aue*(24.d0*x4-24.d0*(aux-1.d0)*x2+6.d0)*invaux
-          ! dUedx=dUedx+aue*b*temp*temp*(-2.d0+(1.d0+3.d0*x)*invaux-(aux-1.d0)/x2)
-          ! dxdYe=bx*third*rho**third*ye**(-2.d0*third)
-          ! dUedYe=dUedx*dxdYe/rho
+          ! Calculation of dUe/dYe from Chandrasekhar expression
+          ! Not necessay if dUedYe comes from EOS
+          
+          !aue=6.01d22
+          !b=1.1218d-18
+          !bx=1.006d-02
+          !x=bx*(rho*ye)**third
+          !x2=x*x
+          !aux=sqrt(x2+1.d0)
+          !invaux=1.d0/aux
+          !dUedx=aue*(24.d0*x2*x2-24.d0*(aux-1.d0)*x2+6.d0)*invaux
+          !dUedx=dUedx+aue*b*temp*temp*(-2.d0+(1.d0+3.d0*x)*invaux-(aux-1.d0)/x2)
+          !dxdYe=bx*third*rho**third*ye**(-2.d0*third)
+          !dUedYe=dUedx*dxdYe/rho
         endif
       else !Possibility to deactivate electron captures if ecapture=.false.
         effe=0.d0
@@ -467,7 +466,7 @@
       aux2(19)=dl(158)
 
       val1=11.6045d0*t9i
-      val2=1.5d0*dlog(t9)
+      val2=1.5d0*log(t9)
       val3=val1*t9i*1.d-9
       val4=1.5d-9*t9i
 
@@ -1113,7 +1112,7 @@
       implicit none
       DOUBLE PRECISION,INTENT(in)::gamma
       DOUBLE PRECISION a1,b1,c1,glt1
-      a1=-.5d0*dsqrt(3.d0)
+      a1=-.5d0*sqrt(3.d0)
       b1=.29561d0
       c1=1.9885d0
       glt1=a1*gamma**(1.5d0)+b1*gamma**c1
@@ -1140,7 +1139,7 @@
       t92=t9*t9
       t93=t92*t9
       t95=t92*t93
-      t912=dsqrt(t9)
+      t912=sqrt(t9)
       t913=t9**(third)
       t923=t913*t913
       t932=t9*t912
@@ -1151,7 +1150,7 @@
       t9m23=1.d0/t923
       t9m32=1.d0/t932
       t9rm1=1.d0/t9r
-      t9r32=t9*dsqrt(t9r)
+      t9r32=t9*sqrt(t9r)
       do i=1,rates
         eff(i)=0.d0
       enddo
@@ -1271,7 +1270,7 @@
       t93=t92*t9
       t94=t93*t9
       t95=t94*t9
-      t912=dsqrt(t9)
+      t912=sqrt(t9)
       t913=t9**third
       t923=t913*t913
       t932=t9*t912
@@ -1471,7 +1470,7 @@
             &  (gamp**1.9885d0)*.29561d0/1.9885d0
          else
             mukbt(i)=a1*gamp+4.d0*(b1*sqroot2gamp-c1/sqroot2gamp)&
-            &  +d1*dlog(gamp)-e1
+            &  +d1*log(gamp)-e1
          endif
       enddo
 
