@@ -1162,28 +1162,28 @@
 ! **
 ! ** triple alpha reaction rate
 ! **
-      r2abe=(7.40d+05*t9m32)*dexp(-1.0663d0*t9m1)&
-     &      +4.164d+09*t9m23*dexp(-13.49d0*t9m13-t92/0.009604d0)&
+      r2abe=(7.40d+05*t9m32)*exp(-1.0663d0*t9m1)&
+     &      +4.164d+09*t9m23*exp(-13.49d0*t9m13-t92/0.009604d0)&
      &      *(1.d0+0.031d0*t913+8.009d0*t923+1.732d0*t9+49.883d0&
      &      *t943+27.426d0*t953)
-      rbeac=(130.d0*t9m32)*dexp(-3.3364d0*t9m1)&
-     &      +2.510d+07*t9m23*dexp(-23.57d0*t9m13-t92/0.055225d0)&
+      rbeac=(130.d0*t9m32)*exp(-3.3364d0*t9m1)&
+     &      +2.510d+07*t9m23*exp(-23.57d0*t9m13-t92/0.055225d0)&
      &      *(1.d0+0.018d0*t913+5.249d0*t923+0.650d0*t9+19.176d0&
      &      *t943+6.034d0*t953)
       if(t9.gt.0.08d0) then
             r3a=2.90d-16*(r2abe*rbeac)&
-     &          +0.1d0*1.35d-07*t9m32*dexp(-24.811d0*t9m1)
+     &          +0.1d0*1.35d-07*t9m32*exp(-24.811d0*t9m1)
       else
             r3a=2.90d-16*(r2abe*rbeac)&
      &          *(0.01d0+0.2d0*(1.d0&
-     &          +4.d0*dexp(-(0.025d0*t9m1)**3.263d0))&
-     &          /(1.d0+4.d0*dexp(-(t9/0.025d0)**9.227d0)))&
-     &          +0.1d0*1.35d-07*t9m32*dexp(-24.811d0*t9m1)
+     &          +4.d0*exp(-(0.025d0*t9m1)**3.263d0))&
+     &          /(1.d0+4.d0*exp(-(t9/0.025d0)**9.227d0)))&
+     &          +0.1d0*1.35d-07*t9m32*exp(-24.811d0*t9m1)
       endif
       eff(5)=r3a
-!      rev=2.d20*dexp(-84.424035d0*t9m1)
+!      rev=2.d20*exp(-84.424035d0*t9m1)
 !This one has a different Q than in net14 ?!?!
-      rev=2.d20*dexp(-84.426375d0*t9m1)
+      rev=2.d20*exp(-84.426375d0*t9m1)
 
 
 ! ** 12c photodesintegration
@@ -1196,7 +1196,7 @@
       t9a=t9/(1.d0+0.0396d0*t9)
       t9a13=t9a**third
       t9a56=t9a**fsix
-      r24=4.27d+26*t9a56*t9m32*dexp(-84.165d0/t9a13-2.12d-03*t93)
+      r24=4.27d+26*t9a56*t9m32*exp(-84.165d0/t9a13-2.12d-03*t93)
       eff(1)=r24
 
 ! **
@@ -1208,8 +1208,8 @@
             t9a13=t9a**third
             t9a23=t9a13*t9a13
             t9a56=t9a**fsix
-            rc28=1.72d+31*t9a56*t9m32*dexp(-106.594d0/t9a13)&
-     &          /(dexp(-0.18d0*t9a2)+1.06d-03*dexp(2.562d0*t9a23))
+            rc28=1.72d+31*t9a56*t9m32*exp(-106.594d0/t9a13)&
+     &          /(exp(-0.18d0*t9a2)+1.06d-03*exp(2.562d0*t9a23))
             r1216=rc28
       else
             r1216=0.d0
@@ -1219,7 +1219,7 @@
 ! **
 ! ** 16o+16o reaction rate
 ! **
-      r32=7.10d+36*t9m23*dexp(-135.93d0*t9m13-0.629d0*t923-0.445d0*t943&
+      r32=7.10d+36*t9m23*exp(-135.93d0*t9m13-0.629d0*t923-0.445d0*t943&
      &    +0.0103d0*t92)
       eff(3)=r32
 
@@ -1227,25 +1227,25 @@
 ! ** 12c(a,g)16o
 ! **
       rcag=(1.04d+08/(t92*(1.d0+0.0489d0*t9m23)**2.d0)&
-     &     *dexp(-32.120d0*t9m13-t92/12.222016d0)&
+     &     *exp(-32.120d0*t9m13-t92/12.222016d0)&
      &     +1.76d+08/(t92*(1.d0+0.2654d0*t9m23)**2.d0)&
-     &     *dexp(-32.120d0*t9m13)&
-     &     +1.25d+03*t9m32*dexp(-27.499d0*t9m1)+1.43d-02*t95&
-     &     *dexp(-15.541d0*t9m1))
+     &     *exp(-32.120d0*t9m13)&
+     &     +1.25d+03*t9m32*exp(-27.499d0*t9m1)+1.43d-02*t95&
+     &     *exp(-15.541d0*t9m1))
       eff(6)=rcag
-      roga=rcag*5.13d+10*t9r32*dexp(-83.11501d0*t9rm1)
+      roga=rcag*5.13d+10*t9r32*exp(-83.11501d0*t9rm1)
       l(6)=roga
 
 ! **
 ! ** 16o(a,g)20ne
 ! **
-      roag=(9.37d+09*t9m23*dexp(-39.757d0*t9m13-t92/2.515396d0)&
-     &     +62.1d0*t9m32*dexp(-10.297d0*t9m1)+538.d0*t9m32&
-     &     *dexp(-12.226d0*t9m1)+13.d0*t92*dexp(-20.093d0*t9m1))
+      roag=(9.37d+09*t9m23*exp(-39.757d0*t9m13-t92/2.515396d0)&
+     &     +62.1d0*t9m32*exp(-10.297d0*t9m1)+538.d0*t9m32&
+     &     *exp(-12.226d0*t9m1)+13.d0*t92*exp(-20.093d0*t9m1))
       eff(7)=roag
 
 ! ** 20Ne photodesintegration
-      rnega=roag*5.65d+10*t9r32*dexp(-54.93807d0*t9rm1)
+      rnega=roag*5.65d+10*t9r32*exp(-54.93807d0*t9rm1)
       l(7)=rnega
 
       RETURN
@@ -1311,13 +1311,13 @@
       dvF=t9i43*23.57d0/3.-36.21548212d0*t9
       dvG=(t9i23*.018d0+t9i13*10.498d0+1.950d0+t913*76.704d0+t923*30.17d0)/3.d0
 
-      r2abe=7.4d5*t9i32*dexp(vB)+4.164d9*t9i23*vD*dexp(vC)
-      rbeac=130.*t9i32*dexp(vE)+2.510d7*t9i23*vG*dexp(vF)
-      dr2abe=dexp(vB)*(-1.11d6*t9i52+7.4d5*t9i32*dvB)+&
-     &       4.164d9*dexp(vC)*(-t9i53*vD*2.d0/3.d0+t9i23*dvC*vD+t9i23*dvD)
-      drbeac=dexp(vE)*(-195.d0*t9i52+130.d0*t9i32*dvE)+&
-     &       2.510d7*dexp(vF)*(-2.d0*t9i53*vG/3.d0+t9i23*dvF*vG+t9i23*dvG)
-      deff(5)=2.90d-16*(dr2abe*rbeac+r2abe*drbeac)+1.35d-8*dexp(vA)*&
+      r2abe=7.4d5*t9i32*exp(vB)+4.164d9*t9i23*vD*exp(vC)
+      rbeac=130.*t9i32*exp(vE)+2.510d7*t9i23*vG*exp(vF)
+      dr2abe=exp(vB)*(-1.11d6*t9i52+7.4d5*t9i32*dvB)+&
+     &       4.164d9*exp(vC)*(-t9i53*vD*2.d0/3.d0+t9i23*dvC*vD+t9i23*dvD)
+      drbeac=exp(vE)*(-195.d0*t9i52+130.d0*t9i32*dvE)+&
+     &       2.510d7*exp(vF)*(-2.d0*t9i53*vG/3.d0+t9i23*dvF*vG+t9i23*dvG)
+      deff(5)=2.90d-16*(dr2abe*rbeac+r2abe*drbeac)+1.35d-8*exp(vA)*&
      &        (-1.5d0*t9i52+t9i32*dvA)
 
 
@@ -1337,11 +1337,11 @@
       dvF=27.499d0*t9i2
       dvG=15.541d0*t9i2
 
-      dl(5)=2.00d20*dexp(vA)*t93*(dvA*eff(5)+3.d0*t9i*eff(5)+deff(5))
-      deff(6)=1.04d8*dexp(vC)*t9i2*(-2.d0*t9i+dvC-dvB/vB)/vB+&
-     &        1.76d8*dexp(vE)*t9i2*(-2.d0*t9i+dvE-dvD/vD)/vD+&
-     &        1.25d3*dexp(vF)*(-1.5d0*t9i52+dvF*t9i32)+&
-     &        1.43d-2*dexp(vG)*(5.d0*t94+dvG*t95)
+      dl(5)=2.00d20*exp(vA)*t93*(dvA*eff(5)+3.d0*t9i*eff(5)+deff(5))
+      deff(6)=1.04d8*exp(vC)*t9i2*(-2.d0*t9i+dvC-dvB/vB)/vB+&
+     &        1.76d8*exp(vE)*t9i2*(-2.d0*t9i+dvE-dvD/vD)/vD+&
+     &        1.25d3*exp(vF)*(-1.5d0*t9i52+dvF*t9i32)+&
+     &        1.43d-2*exp(vG)*(5.d0*t94+dvG*t95)
 
 
 ! *** dl(6) and deff(7). 16O
@@ -1356,17 +1356,17 @@
       dvD=12.226d0*t9i2
       dvE=20.093d0*t9i2
 
-      dl(6)=5.13d10*dexp(vA)*(deff(6)*t932+eff(6)*1.5d0*t912+eff(6)*t932*dvA)
-      deff(7)=9.37d9*dexp(vB)*(-t9i53*2.d0/3.d0+t9i23*dvB)+&
-     &        62.1d0*dexp(vC)*(-1.5d0*t9i52+t9i32*dvC)+&
-     &        538.d0*dexp(vD)*(-1.5d0*t9i52+t9i32*dvD)+&
-     &        13.d0*dexp(vE)*(2.d0*t9+t92*dvE)
+      dl(6)=5.13d10*exp(vA)*(deff(6)*t932+eff(6)*1.5d0*t912+eff(6)*t932*dvA)
+      deff(7)=9.37d9*exp(vB)*(-t9i53*2.d0/3.d0+t9i23*dvB)+&
+     &        62.1d0*exp(vC)*(-1.5d0*t9i52+t9i32*dvC)+&
+     &        538.d0*exp(vD)*(-1.5d0*t9i52+t9i32*dvD)+&
+     &        13.d0*exp(vE)*(2.d0*t9+t92*dvE)
 
 
 ! *** dl(7). 20Ne
       vA=-54.93807d0*t9i
       dvA=54.93807d0*t9i2
-      dl(7)=5.65d10*dexp(vA)*(deff(7)*t932+1.5d0*eff(7)*t912+eff(7)*t932*dvA)
+      dl(7)=5.65d10*exp(vA)*(deff(7)*t932+1.5d0*eff(7)*t912+eff(7)*t932*dvA)
 
 
 ! *** deff(1) 12C+12C
@@ -1377,7 +1377,7 @@
       dvA=vA*vA*t9i2
       dvB=28.055d0*dvA*vA**(-4.d0/3.d0)-6.36d-3*t92
 
-      deff(1)=4.27d26*t9i32*dexp(vB)*(vA**(-1.d0/6.d0)*dvA*fsix&
+      deff(1)=4.27d26*t9i32*exp(vB)*(vA**(-1.d0/6.d0)*dvA*fsix&
      &        -1.5d0*vA56*t9i+vA56*dvB)
 
 ! *** deff(2) 12C+16O
@@ -1387,18 +1387,18 @@
         vB=-106.594d0*vA**(-1.d0/3.d0)
         vC=-.18d0*vA*vA
         vD=2.562d0*vA**(2.d0/3.d0)
-        val=dexp(vC)+1.06d-3*dexp(vD)
+        val=exp(vC)+1.06d-3*exp(vD)
 
         dvA=vA*vA*t9i2
         dvB=106.594d0*vA**(-4.d0/3.d0)*dvA/3.d0
         dvC=-.36d0*vA*dvA
         dvD=1.708d0*dvA*vA**(-third)
-        dval=dvC*dexp(vC)+1.06d-3*dvD*dexp(vD)
+        dval=dvC*exp(vC)+1.06d-3*dvD*exp(vD)
 
 
         deff(2)=1.72d31*t9i32*(vA**(-1.d0/6.d0)*dvA*fsix&
      &         -1.5d0*vA56*t9i&
-     &         +vA56*(dvB-dval/val))*dexp(vB)/val
+     &         +vA56*(dvB-dval/val))*exp(vB)/val
       else
         deff(2)=0.d0
       endif
@@ -1409,7 +1409,7 @@
 
       dvA=45.31d0*t9i43-.629d0*t9i13*2.d0/3.d0-.445d0*t913*4.d0/3.d0+.0206d0*t9
 
-      deff(3)=7.10d36*dexp(vA)*t9i23*(-t9i*2.d0/3.d0+dvA)
+      deff(3)=7.10d36*exp(vA)*t9i23*(-t9i*2.d0/3.d0+dvA)
 
       do i=1,7
         deff(i)=deff(i)/1.d9
